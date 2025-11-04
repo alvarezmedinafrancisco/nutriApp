@@ -10,7 +10,9 @@ def index():
 def info():
     return render_template('info.html')
 
-
+@app.route("/recetas")
+def recetas():
+    return render_template("recetas.html")
 
 
 if __name__ == '__main__':
