@@ -1,4 +1,3 @@
-
 from flask import Flask,render_template
 app = Flask(__name__)
 
@@ -13,6 +12,14 @@ def info():
 @app.route("/recetas")
 def recetas():
     return render_template("recetas.html")
+
+@app.route("/calculadora")
+def calcula():
+    return render_template("/calcula.html")
+
+@app.route("/recomendaciones")
+def recomendaciones():
+    return render_template("/recomendaciones.html")
 
 
 if __name__ == '__main__':

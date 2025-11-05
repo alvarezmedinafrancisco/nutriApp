@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <div class="d-flex justify-content-center">
+    <div class="card" style="width: 30rem; background-color: #fc9eecff;">
+      <div class="card-body">
+        <h5 class="card-title">Calculadora</h5>
+        <p class="card-text">Ingrese el valor que desea calcular:</p>
+        <input type="text" class="form-control" placeholder="Ingrese un valor">
+        <a href="#" class="btn btn-success mt-3">Calcular</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
