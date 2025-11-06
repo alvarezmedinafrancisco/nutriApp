@@ -1,7 +1,7 @@
 from flask import Flask,render_template
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/base')
 def index():
     return render_template('base.html')
 
@@ -21,6 +21,13 @@ def calcula():
 def recomendaciones():
     return render_template("/recomendaciones.html")
 
+@app.route("/registrate")
+def registrate():
+    return render_template("/registrate.html")
+
+@app.route("/utiles")
+def utiles():
+    return render_template("/utiles.html")
 
 if __name__ == '__main__':
     app.run(debug=True)

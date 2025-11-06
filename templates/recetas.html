@@ -8,10 +8,45 @@
 <body>
     {% extends 'base.html' %}
         {% block content%}  
-    
+        <div class="container mt-5">
+  <div class="d-flex justify-content-center">
+    <div class="card" style="width: 30rem; background-color: #fff5e1">
+      <div class="card-body">
+        <h5 class="card-title text-center">Recetario Saludable</h5>
+        <p class="card-text">
+          Encuentra recetas nutritivas, fáciles y deliciosas. Puedes buscar según tu tiempo, dificultad o tipo de dieta.
+        </p>
 
+        <ul>
+          <li>
+            <strong>Ensalada de camarones y aguacate:</strong> camarones cocidos, aguacate, jitomate cherry, pepino y jugo de limón. Alta en proteínas y grasas saludables.
+          </li>
+          <img src="static/camarones.jpg" alt="Ensalada de camarones y aguacate" style="width:100%; height:auto; margin-bottom:15px;">
+          <li>
+            <strong>Tacos de pescado al horno:</strong> usa filetes de pescado blanco, condimenta con limón, ajo y comino. Sírvelos en tortillas integrales con repollo rallado.
+          </li>
+          <img src="static/tacos.jpg" alt="Tacos de pescado al horno" style="width:100%; height:auto; margin-bottom:15px;">
+          <li>
+            <strong>Ensalada mediterránea:</strong> lechuga, jitomate, pepino, aceitunas, queso fresco y un chorrito de aceite de oliva. Ideal para acompañar comidas.
+          </li>
+            <img src="static/ensaladarara.png" alt="Ensalada mediterránea" style="width:100%; height:auto; margin-bottom:15px;">
+          <li>
+            <strong>Salteado de mariscos con verduras:</strong> mezcla camarones, calamar y mejillones con pimientos, brócoli y salsa de soya baja en sodio.
+          </li>
+          <img src="static/salteado.jpg" alt="Ensalada mediterránea" style="width:100%; height:auto; margin-bottom:15px;">
+          <li>
+            <strong>Meal Prep de pollo con quinoa:</strong> cocina pechugas de pollo, quinoa y vegetales al vapor. Guarda porciones para varios días.
+          </li>
+          <img src="static/quinoa.jpg" alt="Ensalada mediterránea" style="width:100%; height:auto; margin-bottom:15px;">
+        </ul>
 
-
+        <div class="text-center mt-3">
+          <a href="#" class="btn btn-success" style="background-color: #000000ff; border: none;">Ver más recetas</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
     {%endblock%}
 </body>
 </html>
