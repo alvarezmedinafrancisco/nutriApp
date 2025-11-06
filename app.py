@@ -1,18 +1,18 @@
-from flask import Flask,render_template
+from flask import Flask,render_template , request , url_for
 app = Flask(__name__)
 
 @app.route('/')
 def index():
     return render_template('base.html')
 
-@APP.ROUTE("/base")
+@app.route("/base")
 def base():
     return render_template("base.html")
 
 
-@app.route('/info')
+@app.route('/info' , methods=['GET', 'POST'])
 def info():
-    return render_template('info.html')
+    return render_template('info.html') 
 
 @app.route("/recetas")
 def recetas():
