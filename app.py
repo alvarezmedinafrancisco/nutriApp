@@ -56,11 +56,16 @@ def registrate():
         nivel_cocina = request.form['nivel_cocina']
         preferencias = request.form['preferencias']
         alergias = request.form['alergias']
-        return render_template("/registrate.html")
+        return render_template("/perfil.html", nombre=nombre)
+    return render_template("/registrate.html")
 
 @app.route("/utiles")
 def utiles():
     return render_template("/utiles.html")
+
+@app.route("/perfil")
+def perfil():
+    return render_template("/perfil.html")  
 
 if __name__ == '__main__':
     app.run(debug=True)

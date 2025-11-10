@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+{% extends 'base.html' %}
+{% block content%}
+
+<div class="container mt-5">
+  <div class="d-flex justify-content-center">
+    <div class="card" style="width: 30rem; background-color: #fff5e1;">
+      <div class="card-body">
+        <h5 class="card-title text-center">Perfil del Usuario</h5>
+
+        <p class="card-text">Nombre:</p>
+        <input type="text" class="form-control mb-3" id="name" name="name" value="{{ user.name }}" required>
+
+        <p class="card-text">Apellidos:</p>
+        <input type="text" class="form-control mb-3" id="apellidos" name="apellidos" value="{{ user.apellidos }}" required>
+
+        <p class="card-text">Edad:</p>
+        <input type="number" class="form-control mb-3" id="edad" name="edad" value="{{ user.edad }}" required>
+
+        <p class="card-text">Sexo:</p>
+        <select class="form-control mb-3" id="sexo" name="sexo" required>
+          <option value="">Seleccione una opción</option>
+          <option value ="Masculino" {% if user.sexo == 'Masculino' %}selected{% endif %}>Masculino</option>
+          <option value="Femenino" {% if user.sexo == 'Femenino' %}selected{% endif %}>Femenino</option>
+          <option value="Otro" {% if user.sexo == 'Otro' %}selected{% endif %}>Otro</option>
+        </select>
+
+        <p class="card-text">Peso (kg):</p>
+        <input type="number" class="form-control mb-3" id="peso" name="peso" value="{{ user.peso }}" required>
+
+        <p class="card-text">Altura (cm):</p>
+        <input type="number" class="form-control mb-3" id="altura" name="altura" value="{{ user.altura }}" required>
+
+        <p class="card-text" >Nivel de Actividad Física:</p>
+        <select class="form-control mb-3"  id="nivel_actividad" required>
+          <option value="">Seleccione una opción</option>
+          <option value="Sedentario" {% if user.nivel_actividad == '
+
+
+{%endblock%}
+</body>
+</html>
