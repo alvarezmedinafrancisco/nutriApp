@@ -27,7 +27,7 @@ app.py
 
 
 
-=======
+
 git config --global user.name "jose rafael ruiz hernandez"
 git config --global user.email "23308060610676@cetis61.edu.mx"
 git config --global user.email "23308060610676@cetis61.edu.mx"
