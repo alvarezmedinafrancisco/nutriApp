@@ -59,9 +59,48 @@ def registrate():
         return render_template("/perfil.html", nombre=nombre)
     return render_template("/registrate.html")
 
-@app.route("/utiles")
+@app.route("/utiles", methods=['GET', 'POST'])
 def utiles():
-    return render_template("/utiles.html")
+    if request.method == 'POST':
+        peso = request.form['peso']
+        altura = request.form['altura']
+        edad = request.form['edad']
+        sexo = request.form['sexo']
+        nivel_actividad = request.form['nivel_actividad']
+
+        try:
+            peso = float(peso)
+            altura = float(altura)
+            edad = int(edad)
+        except (TypeError, ValueError):
+            return render_template("utiles.html", error="Entrada inválida")
+        imc = peso / (altura * altura) if altura > 0 else None
+        altura_cm = altura * 100
+        if str(sexo).lower() == 'masculino':
+            tmb = 10 * peso + 6.25 * altura_cm - 5 * edad + 5
+        else:
+            tmb = 10 * peso + 6.25 * altura_cm - 5 * edad - 161
+        actividad = {
+            'sedentario': 1.2,
+            'ligero': 1.375,
+            'moderado': 1.55,
+            'activo': 1.725,
+            'muy_activo': 1.9
+        }
+        factor = actividad.get(nivel_actividad, 1.2)
+        gct = tmb * factor
+
+        ideal = 22 * (altura * altura)
+
+        macro = {
+            'proteinas': (gct * 0.2) / 4,
+            'carbos': (gct * 0.5) / 4,
+            'grasas': (gct * 0.3) / 9
+        }
+
+        return render_template("utiles.html", imc=imc, tmb=tmb, gct=gct, ideal=ideal, macro=macro)
+
+    return render_template("utiles.html")
 
 @app.route("/perfil")
 def perfil():
