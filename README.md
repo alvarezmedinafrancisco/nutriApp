@@ -24,3 +24,8 @@ python -m venv venv
 pip install flask
 python.exe -m pip install --upgrade pip
 app.py
+
+
+
+
+oalaaaa
