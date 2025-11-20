@@ -67,5 +67,49 @@ def utiles():
 def perfil():
     return render_template("/perfil.html")  
 
+
+
+
+
+
+nutrientes = {
+    "pollo": {"calorias": 165, "proteina": 31, "carbohidratos": 0, "grasas": 3.6},
+    "arroz": {"calorias": 130, "proteina": 2.7, "carbohidratos": 28, "grasas": 0.3},
+    "aceite": {"calorias": 884, "proteina": 0, "carbohidratos": 0, "grasas": 100}
+}
+
+@app.route("/", methods=["GET", "POST"])
+def index():
+    resultado = None
+    if request.method == "POST":
+        ingredientes = request.form["ingredientes"].split(",")
+        total = {"calorias":0, "proteina":0, "carbohidratos":0, "grasas":0}
+        
+        for item in ingredientes:
+            partes = item.strip().split()
+            cantidad = int(partes[0].replace("g","").replace("cucharada","1"))  
+            nombre = partes[1].lower()
+            
+            if nombre in nutrientes:
+                datos = nutrientes[nombre]
+                factor = cantidad / 100
+                for k in total:
+                    total[k] += datos[k] * factor
+        
+        resultado = total
+    
+    return render_template("index.html", resultado=resultado)
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
