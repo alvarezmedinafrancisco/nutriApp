@@ -25,6 +25,9 @@ pip install flask
 python.exe -m pip install --upgrade pip
 app.py
 
+from flask_mysqldb import mySQL 
+from werkzeug.security import generete_password_hash
+
 
 
 

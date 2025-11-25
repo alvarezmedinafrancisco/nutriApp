@@ -1,61 +1,59 @@
 from flask import Flask,render_template , request , url_for
-from flask_mysqldb import mySQL 
-from werkzeug.security import generete_password_hash
 import requests
 app = Flask(__name__)
+
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''   
 app.config['MYSQL_DB'] = 'averquerollo'
 
-mySQL = mySQL(app)
+#mySQL = mySQL(app)
 
-def crear_tabla():
-    try:
-        cursor = mySQL.connection.cursor()
-        cursor.execute('''CREATE TABLE IF NOT EXISTS usuarios (
-                            id INT AUTO_INCREMENT PRIMARY KEY,
-                            nombre VARCHAR(100),
-                            apellidos VARCHAR(100),
-                            edad INT,
-                            sexo VARCHAR(10),
-                            peso FLOAT,
-                            altura FLOAT,
-                            nivel_actividad VARCHAR(50),
-                            correo VARCHAR(100),
-                            contra VARCHAR(255),
-                            objetivo VARCHAR(100),
-                            nivel_cocina VARCHAR(50),
-                            preferencias VARCHAR(255),
-                            alergias VARCHAR(255)
-                        )''')
-        mySQL.connection.commit()
-        cursor.close()
-    except Exception as e:
-        print(f"Error al crear la tabla: {e}")
-        
-        
-def email_exists(correo):
-    try:
-        cursor = mySQL.connection.cursor()
-        cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (correo,))
-        user = cursor.fetchone() is not None
-    except Exception as e:
-        print(f"Error al verificar el correo: {e}")
-        return False
+#def crear_tabla():
+    #try:#
+        #cursor = mySQL.connection.cursor()
+        #cursor.execute('''CREATE TABLE IF NOT EXISTS usuarios (
+        #                    id INT AUTO_INCREMENT PRIMARY KEY,
+        #                    nombre VARCHAR(100),
+        #                    apellidos VARCHAR(100),
+        #                    edad INT,
+        #                    sexo VARCHAR(10),
+        #                    peso FLOAT,
+        #                    altura FLOAT,
+        #                    nivel_actividad VARCHAR(50),
+        #                    correo VARCHAR(100),
+        #                    contra VARCHAR(255),
+        #                    objetivo VARCHAR(100),
+        #                    nivel_cocina VARCHAR(50),
+        #                    preferencias VARCHAR(255),
+        #                    alergias VARCHAR(255)
+        #                )''')
+        #mySQL.connection.commit()
+        #cursor.close()
+   # except Exception as e:#
+      #  print(f"Error al crear la tabla: {e}")
+     #   
+    #    
+#def email_exists(correo):
+    #try:
+       # cursor = mySQL.connection.cursor()
+        #cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (correo,))
+       # user = cursor.fetchone() is not None
+   # except Exception as e:
+    #    print(f"Error al verificar el correo: {e}")
+     #   return False
     
-def registrar_usuario(nombre, apellidos, edad, sexo, peso, altura, nivel_actividad, correo, contra, objetivo, nivel_cocina, preferencias, alergias):
-    try:
-        cursor = mySQL.connection.cursor()
-        hashed_password = generete_password_hash(contra)
-        cursor.execute('''INSERT INTO usuarios (nombre, apellidos, edad, sexo, peso, altura, nivel_actividad, correo, contra, objetivo, nivel_cocina, preferencias, alergias)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)''',
-                        (nombre, apellidos, edad, sexo, peso, altura, nivel_actividad, correo, hashed_password, objetivo, nivel_cocina, preferencias, alergias))
-        mySQL.connection.commit()
-        return True , "Usuario registrado exitosamente."
-    except Exception as e:
-        return False , f"Error al registrar el usuario: {e}"
+#def registrar_usuario(nombre, apellidos, edad, sexo, peso, altura, nivel_actividad, correo, contra, objetivo, nivel_cocina, preferencias, alergias):
+   # #    cursor = mySQL.connection.cursor()
+    #    #hashed_password = generete_password_hash(contra)
+     #   cursor.execute('''INSERT INTO usuarios (nombre, apellidos, edad, sexo, peso, altura, nivel_actividad, correo, contra, objetivo, nivel_cocina, preferencias, alergias)
+       #                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)''',
+       #                 (nombre, apellidos, edad, sexo, peso, altura, nivel_actividad, correo, hashed_password, objetivo, nivel_cocina, preferencias, alergias))
+     #   mySQL.connection.commit()
+      #  return True , "Usuario registrado exitosamente."
+   # except Exception as e:
+   #     return False , f"Error al registrar el usuario: {e}"
         
 @app.route('/')
 def index():    
