@@ -129,14 +129,11 @@ def utiles():
         except (TypeError, ValueError):
             return render_template("utiles.html", error="Entrada inválida")
         imc = peso / (altura * altura) if altura > 0 else None
-
-
         altura_cm = altura * 100
-        if str(sexo).lower() == 'masculino':
+        if sexo.lower() == 'masculino':
             tmb = 10 * peso + 6.25 * altura_cm - 5 * edad + 5
         else:
             tmb = 10 * peso + 6.25 * altura_cm - 5 * edad - 161
-
         activity_factors = {
             'sedentario': 1.2,
             'ligero': 1.375,
@@ -146,18 +143,26 @@ def utiles():
         }
         factor = activity_factors.get(nivel_actividad, 1.2)
         gct = tmb * factor
-
         ideal = 22 * (altura * altura)
-
         macro = {
             'proteinas': (gct * 0.2) / 4,
             'carbos': (gct * 0.5) / 4,
             'grasas': (gct * 0.3) / 9
         }
-
-        return render_template("utiles.html", imc=imc, tmb=tmb, gct=gct, ideal=ideal, macro=macro)
+        return render_template(
+            "utiles.html",
+            imc=imc,
+            tmb=tmb,
+            gct=gct,
+            ideal=ideal,
+            macro=macro,
+            proteinas=macro['proteinas'],
+            carbos=macro['carbos'],
+            grasas=macro['grasas']
+        )
 
     return render_template("utiles.html")
+
 
 @app.route("/perfil")
 def perfil():
