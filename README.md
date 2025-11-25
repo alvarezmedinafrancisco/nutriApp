@@ -27,7 +27,10 @@ app.py
 
 from flask_mysqldb import mySQL 
 from werkzeug.security import generete_password_hash
+from werkzeung import generate_password_hash , check_password_hash
 
+
+password en base de datos 255 caracteres 
 
 
 

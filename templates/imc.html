@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=s, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% extends 'base.html' %}
+{% block content %}
+
+
+
+<div class="container mt-5">
+    
+  <div class="text-center text-danger mt-4 mb-4 fs-3 fw-bold">
+      Calculadora de Índice de Masa Corporal (IMC)
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-3 text-center mt-4">
+      <h5 class="card-title text-center">Índice de Masa Corporal (IMC)</h5>
+      <p class="card-text text-center">
+        El IMC es una medida basada en altura y peso.
+      </p>
+      <img src="/static/imc.png" style="width: 300px; height: 300px;">
+    </div>
+    <div class="card col-6" style="background-color: #fff5e1;">
+      <div class="card-body">
+
+        <h5 class="card-title
+    text-center">Calcula tu IMC</h5>
+        <p class="card-text text-center">Ingresa tus datos para calcular tu Índice de Masa Corporal.</p>
+
+        <form action="/imc" method="POST">
+            <label>Peso (kg):</label>
+            <input type="number" class="form-control mb-3" name="peso" placeholder="Ej: 70" required>
+
+            <label>Altura (m):</label>
+            <input type="number" class="form-control mb-3" name="altura" step="0.01" placeholder="Ej: 1.75" required>
+
+            <div class="text-center mt-4">
+                <button class="btn btn-dark">Calcular IMC</button>
+            </div>
+        </form>
+
+        {% if imc %}
+        <hr>
+        <div class="alert alert-info mt-4" role="alert">
+            Tu Índice de Masa Corporal (IMC) es: <strong>{{ imc }}</strong> - {{ categoria }}
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
+
+</body>
+</html>

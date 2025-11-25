@@ -73,6 +73,16 @@ def index():
                 }]
     return render_template('registrate.html')
 
+@app.route("/imc" , methods=['GET', 'POST'])
+def imc():
+    if request.method == 'POST':
+        peso = float(request.form['peso'])
+        altura = float(request.form['altura'])
+        imc = peso / (altura * altura)
+        return render_template("imc.html", imc=imc)
+    return render_template("imc.html")
+
+
 @app.route("/base")
 def base():
     return render_template("base.html")
