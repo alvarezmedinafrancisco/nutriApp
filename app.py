@@ -1,77 +1,45 @@
-from flask import Flask,render_template , request , url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_mysqldb import MySQL
 import requests
-app = Flask(__name__)
 
+app = Flask(__name__)
+app.secret_key = "12345" 
+
+
+API_URL = "https://api.nal.usda.gov/fdc/v1/foods/search"
+API_KEY = "1YeHW5ssRNnnsULz2f3nq5ZNYtQWfJYHlbtUwtyQ"
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''   
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'averquerollo'
 
-#mySQL = mySQL(app)
 
-#def crear_tabla():
-    #try:#
-        #cursor = mySQL.connection.cursor()
-        #cursor.execute('''CREATE TABLE IF NOT EXISTS usuarios (
-        #                    id INT AUTO_INCREMENT PRIMARY KEY,
-        #                    nombre VARCHAR(100),
-        #                    apellidos VARCHAR(100),
-        #                    edad INT,
-        #                    sexo VARCHAR(10),
-        #                    peso FLOAT,
-        #                    altura FLOAT,
-        #                    nivel_actividad VARCHAR(50),
-        #                    correo VARCHAR(100),
-        #                    contra VARCHAR(255),
-        #                    objetivo VARCHAR(100),
-        #                    nivel_cocina VARCHAR(50),
-        #                    preferencias VARCHAR(255),
-        #                    alergias VARCHAR(255)
-        #                )''')
-        #mySQL.connection.commit()
-        #cursor.close()
-   # except Exception as e:#
-      #  print(f"Error al crear la tabla: {e}")
-     #   
-    #    
-#def email_exists(correo):
-    #try:
-       # cursor = mySQL.connection.cursor()
-        #cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (correo,))
-       # user = cursor.fetchone() is not None
-   # except Exception as e:
-    #    print(f"Error al verificar el correo: {e}")
-     #   return False
-    
-#def registrar_usuario(nombre, apellidos, edad, sexo, peso, altura, nivel_actividad, correo, contra, objetivo, nivel_cocina, preferencias, alergias):
-   # #    cursor = mySQL.connection.cursor()
-    #    #hashed_password = generete_password_hash(contra)
-     #   cursor.execute('''INSERT INTO usuarios (nombre, apellidos, edad, sexo, peso, altura, nivel_actividad, correo, contra, objetivo, nivel_cocina, preferencias, alergias)
-       #                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)''',
-       #                 (nombre, apellidos, edad, sexo, peso, altura, nivel_actividad, correo, hashed_password, objetivo, nivel_cocina, preferencias, alergias))
-     #   mySQL.connection.commit()
-      #  return True , "Usuario registrado exitosamente."
-   # except Exception as e:
-   #     return False , f"Error al registrar el usuario: {e}"
         
 @app.route('/')
 def index():    
-    usuario = [{"name : pepe",
-                "apellidos : pica piedra",
-                "edad : 26",
-                "sexo : masculino",
-                "peso : 88",
-                "altura : 1.88",
-                "nivel de actividad fisica : Moderado",
-                "correo electronico : pepe@gmail.com",
-                "contra : pepe123",
-                "objetivo : bajar de peso",
-                "nivel de cosima : master chef",
-                "preferencias alimenticias : Keto",
-                "Alergias alimentarias : nada"
-                }]
     return render_template('registrate.html')
+
+@app.route("/foods", methods=['GET', 'POST'])
+def get_foods():
+    food_name = request.args.get("food_name", "").strip()
+    if not food_name:
+        food_name = "apple"
+    params = {
+        "api_key": API_KEY,
+        "query": food_name,
+        "pageSize": 12
+    }
+    try:
+        response = requests.get(API_URL, params=params)
+        response.raise_for_status()
+        data = response.json()
+        foods = data.get("foods", [])
+        return render_template("foods.html", foods=foods, food_name=food_name, error=None)
+    except requests.exceptions.RequestException as e:
+        error_message = f"Ocurrió un error al consultar la API: {e}"
+        return render_template("foods.html", foods=[], food_name=food_name, error=error_message)
+
 
 @app.route("/imc" , methods=['GET', 'POST'])
 def imc():
@@ -82,31 +50,18 @@ def imc():
         return render_template("imc.html", imc=imc)
     return render_template("imc.html")
 
+mysql = MySQL(app)
+def email_exists(correo):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT id FROM usuarios WHERE correo = %s", (correo,))
+    resultado = cursor.fetchone()
+    cursor.close()
+    return resultado is not None
 
-@app.route("/base")
-def base():
-    return render_template("base.html")
-
-
-@app.route('/info' , methods=['GET', 'POST'])
-def info():
-    return render_template('info.html') 
-
-@app.route("/recetas")
-def recetas():
-    return render_template("recetas.html")
-
-@app.route("/calculadora")
-def calcula():
-    return render_template("/calcula.html")
-
-@app.route("/recomendaciones")
-def recomendaciones():
-    return render_template("/recomendaciones.html")
-
-@app.route("/registrate" , methods=['GET', 'POST'])
+@app.route("/registrate", methods=['GET', 'POST'])
 def registrate():
     if request.method == 'POST':
+
         nombre = request.form['name']
         apellidos = request.form['apellidos']
         edad = request.form['edad']
@@ -120,63 +75,46 @@ def registrate():
         nivel_cocina = request.form['nivel_cocina']
         preferencias = request.form['preferencias']
         alergias = request.form['alergias']
-        return render_template("/perfil.html", nombre=nombre)
-    return render_template("/registrate.html")
+        if email_exists(correo):
+            flash("Ese correo ya está registrado, elige otro.")
+            return redirect(url_for('registrate'))
 
-@app.route("/utiles", methods=['GET', 'POST'])
-def utiles():
-    if request.method == 'POST':
-        peso = request.form['peso']
-        altura = request.form['altura']
-        edad = request.form['edad']
-        sexo = request.form['sexo']
-        nivel_actividad = request.form['nivel_actividad']
+        cursor = mysql.connection.cursor()
+        cursor.execute('''
+            INSERT INTO usuarios 
+            (nombre, apellidos, edad, sexo, peso, altura, nivel_actividad, correo, contra, objetivo, nivel_cocina, preferencias, alergias)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        ''', (nombre, apellidos, edad, sexo, peso, altura, nivel_actividad, correo, contra, objetivo, nivel_cocina, preferencias, alergias))
 
-        try:
-            peso = float(peso)
-            altura = float(altura)
-            edad = int(edad)
-        except (TypeError, ValueError):
-            return render_template("utiles.html", error="Entrada inválida")
-        imc = peso / (altura * altura) if altura > 0 else None
-        altura_cm = altura * 100
-        if sexo.lower() == 'masculino':
-            tmb = 10 * peso + 6.25 * altura_cm - 5 * edad + 5
-        else:
-            tmb = 10 * peso + 6.25 * altura_cm - 5 * edad - 161
-        activity_factors = {
-            'sedentario': 1.2,
-            'ligero': 1.375,
-            'moderado': 1.55,
-            'activo': 1.725,
-            'muy_activo': 1.9
-        }
-        factor = activity_factors.get(nivel_actividad, 1.2)
-        gct = tmb * factor
-        ideal = 22 * (altura * altura)
-        macro = {
-            'proteinas': (gct * 0.2) / 4,
-            'carbos': (gct * 0.5) / 4,
-            'grasas': (gct * 0.3) / 9
-        }
-        return render_template(
-            "utiles.html",
-            imc=imc,
-            tmb=tmb,
-            gct=gct,
-            ideal=ideal,
-            macro=macro,
-            proteinas=macro['proteinas'],
-            carbos=macro['carbos'],
-            grasas=macro['grasas']
-        )
+        mysql.connection.commit()
+        cursor.close()
 
-    return render_template("utiles.html")
+        flash("Usuario registrado correctamente.")
+        return redirect(url_for('perfil', nombre=nombre))
 
-
+    return render_template("registrate.html")
 @app.route("/perfil")
 def perfil():
-    return render_template("/perfil.html")  
+    nombre = request.args.get('nombre', 'Usuario')
+    return render_template("perfil.html", nombre=nombre)
+@app.route("/base")
+def base():
+    return render_template("base.html")
+@app.route("/info")
+def info():
+    return render_template("info.html")
+@app.route("/recetas")
+def recetas():
+    return render_template("recetas.html")
+@app.route("/calculadora")
+def calcula():
+    return render_template("calcula.html")
+@app.route("/recomendaciones")
+def recomendaciones():
+    return render_template("recomendaciones.html")
+@app.route("/utiles")
+def utiles():
+    return render_template("utiles.html")
 
 if __name__ == '__main__':
     app.run(debug=True)

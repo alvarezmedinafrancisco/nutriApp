@@ -41,7 +41,23 @@
         <p class="card-text" >Nivel de Actividad Física:</p>
         <select class="form-control mb-3"  id="nivel_actividad" required>
           <option value="">Seleccione una opción</option>
-          <option value="Sedentario" {% if user.nivel_actividad == '
+          <option value="Sedentario" {% if user.nivel_actividad == 'Sedentario' %}selected{% endif %}>Sedentario</option>
+          <option value="ligero" {% if user.nivel_actividad == 'ligero' %}selected{% endif %}>Ligero</option>
+          <option value= "Moderado" {% if user.nivel_actividad == 'Moderado' %}selected{% endif %}>Moderado</option>
+          <option value="Activo" {% if user.nivel_actividad == 'Activo' % }selected{% endif %}>Activo</option>
+          <option value="Muy Activo" {% if user.nivel_actividad == 'Muy Activo' %}selected{% endif %}>Muy Activo</option>
+        </select>
+        <p class="card-text">Correo Electrónico:</p>
+        <input type="email" class="form-control mb-3" id="email" name="email" value="{{ user.email }}" required>              
+        <p class="card-text" >Contraseña:</p>
+        <input type="password" class="form-control mb-3" id="password" name="password" value="{{ user.password }}" required> 
+        <p class="card-text">Foto de Perfil:</p>
+        <input type="file" class="form-control mb-3" />
+        <div class="text-center mt-4">
+          <button class="btn btn-primary" style="background-color: #000000ff; border: none;" action>Guardar Perfil</button>
+        </div>
+      </div>    
+      
 
 
 {%endblock%}

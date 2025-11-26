@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+
+  <div class="text-center text-danger mt-4 mb-4 fs-3 fw-bold">
+      Repartición de Macronutrientes
+  </div>
+
+  <div class="row justify-content-center">
+
+    <div class="col-3 text-center mt-4">
+      <h5>¿Qué son los macros?</h5>
+      <p>Proteínas, carbohidratos y grasas que debes consumir al día.</p>
+      <img src="/static/macros.png" style="width: 260px; height: 260px;">
+    </div>
+
+    <div class="card col-6" style="background-color: #ffeaea;">
+      <div class="card-body">
+
+        <h5 class="text-center">Calcular Macronutrientes</h5>
+
+        <form action="/macros" method="POST">
+
+            <label>GCT (kcal/día):</label>
+            <input type="number" class="form-control mb-3" name="gct" required>
+
+            <label>Objetivo:</label>
+            <select class="form-control mb-3" name="objetivo">
+                <option value="mantener">Mantener peso</option>
+                <option value="bajar">Perder peso</option>
+                <option value="subir">Aumentar masa</option>
+            </select>
+
+            <div class="text-center mt-4">
+                <button class="btn btn-danger">Calcular</button>
+            </div>
+        </form>
+
+        <hr>
+
+        {% if proteinas %}
+        <h6 class="text-center">Resultados:</h6>
+        <p class="text-center">
+          Proteínas: <strong>{{ proteinas|round(1) }} g</strong><br>
+          Carbohidratos: <strong>{{ carbos|round(1) }} g</strong><br>
+          Grasas: <strong>{{ grasas|round(1) }} g</strong>
+        </p>
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

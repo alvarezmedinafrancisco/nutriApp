@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+
+  <div class="text-center text-warning mt-4 mb-4 fs-3 fw-bold">
+      Calculadora de Gasto Calórico Total (GCT)
+  </div>
+
+  <div class="row justify-content-center">
+
+    <div class="col-3 text-center mt-4">
+      <h5>¿Qué es el GCT?</h5>
+      <p>Calorías diarias que tu cuerpo necesita según tu actividad.</p>
+      <img src="/static/gct.png" style="width: 260px; height: 260px;">
+    </div>
+
+    <div class="card col-6" style="background-color: #fff7db;">
+      <div class="card-body">
+
+        <h5 class="text-center">Calcular GCT</h5>
+
+        <form action="/gct" method="POST">
+
+            <label>TMB (kcal):</label>
+            <input type="number" class="form-control mb-3" name="tmb" required>
+
+            <label>Nivel de Actividad:</label>
+            <select class="form-control mb-3" name="actividad" required>
+                <option value="1.2">Sedentario</option>
+                <option value="1.375">Ligero</option>
+                <option value="1.55">Moderado</option>
+                <option value="1.725">Activo</option>
+                <option value="1.9">Muy activo</option>
+            </select>
+
+            <div class="text-center mt-4">
+                <button class="btn btn-warning">Calcular</button>
+            </div>
+        </form>
+
+        <hr>
+
+        {% if gct %}
+        <h6 class="text-center">Resultado:</h6>
+        <p class="text-center fs-5"><strong>{{ gct|round(2) }} kcal/día</strong></p>
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
+    

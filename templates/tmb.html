@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+
+  <div class="text-center text-success mt-4 mb-4 fs-3 fw-bold">
+      Calculadora de TMB
+  </div>
+
+  <div class="row justify-content-center">
+
+    <div class="col-3 text-center mt-4">
+      <h5>¿Qué es la TMB?</h5>
+      <p>Energía que tu cuerpo gasta en reposo.</p>
+      <img src="/static/tmb.png" style="width: 260px; height: 260px;">
+    </div>
+
+    <div class="card col-6" style="background-color: #e9ffe7;">
+      <div class="card-body">
+
+        <h5 class="text-center">Calcular TMB</h5>
+
+        <form action="/tmb" method="POST">
+
+            <label>Peso (kg):</label>
+            <input type="number" class="form-control mb-3" name="peso" required>
+
+            <label>Altura (cm):</label>
+            <input type="number" class="form-control mb-3" name="altura" required>
+
+            <label>Edad:</label>
+            <input type="number" class="form-control mb-3" name="edad" required>
+
+            <label>Sexo:</label>
+            <select class="form-control mb-3" name="sexo" required>
+                <option value="">Seleccione</option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+            </select>
+
+            <div class="text-center mt-4">
+                <button class="btn btn-success">Calcular</button>
+            </div>
+        </form>
+
+        <hr>
+
+        {% if tmb %}
+        <h6 class="text-center">Resultado:</h6>
+        <p class="text-center fs-5"><strong>{{ tmb|round(2) }} kcal/día</strong></p>
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
