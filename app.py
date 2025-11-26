@@ -97,6 +97,19 @@ def macro():
         return render_template("macro.html", calorias=calorias, proteinas=proteinas, grasas=grasas, carbos=carbohidratos)
     return render_template("macro.html")
 
+
+@app.route("/pesoideal", methods=['GET', 'POST'])
+def peso_ideal():
+    if request.method == 'POST':
+        altura = float(request.form['altura'])
+        sexo = request.form['sexo']
+        if sexo == 'hombre':
+            peso_ideal = 50 + 2.3 * ((altura * 100 / 2.54) - 60)
+        else:
+            peso_ideal = 45.5 + 2.3 * ((altura * 100 / 2.54) - 60)
+        return render_template("peso_ideal.html", peso_ideal=peso_ideal)
+    return render_template("peso_ideal.html")
+
 mysql = MySQL(app)
 def email_exists(correo):
     cursor = mysql.connection.cursor()

@@ -43,9 +43,6 @@
               <a class="nav-link" href="/calculadora">analizador de recetas</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/utiles">herramientas</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="/recomendaciones">Recomendaciones</a>
             </li>
              <li class="nav-item">
@@ -68,7 +65,7 @@
       </div>
     </nav>
 
-    {% block content %}ç
+    {% block content %}
       <div class="text-center text-danger mt-4 mb-4 fs-3 fw-bold">!BIENVENIDO A LA MEJOR nutriVerse "usuario"!</div>
 
     <div class="container mt-5">
@@ -122,6 +119,20 @@
           <p class="card-text">Calcula proteínas, carbohidratos y grasas</p>
           <img src="static/macro.jpg" class="img-fluid mb-3" style="max-width: 150px;">
           <a href="/macro" class="btn btn-dark w-100">Ir a Macros</a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- CARD 5 -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card shadow-sm h-100" 
+           style="background-color: #ffe5c4; border-radius: 15px; transition: transform .2s;">
+        <div class="card-body text-center">
+          <h5 class="card-title">peso ideal</h5> 
+          <p class="card-text">Calcula tu peso ideal</p>
+          <img src="static/pesoideal.jpg" class="img-fluid mb-3" style="max-width: 150px;">
+          <a href="/pesoideal" class="btn btn-dark w-100">Ir a Peso Ideal</a>
         </div>
       </div>
     </div>
