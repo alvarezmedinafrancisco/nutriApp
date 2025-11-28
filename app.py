@@ -13,6 +13,7 @@ app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'usuarios'
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 
         
@@ -157,24 +158,37 @@ def registrate():
 def perfil():
     nombre = request.args.get('nombre', 'Usuario')
     return render_template("perfil.html", nombre=nombre)
+
+
 @app.route("/base")
 def base():
     return render_template("base.html")
+
+
 @app.route("/info")
 def info():
     return render_template("info.html")
+
+
 @app.route("/recetas")
 def recetas():
     return render_template("recetas.html")
+
+
 @app.route("/calculadora")
 def calcula():
     return render_template("calcula.html")
+
+
 @app.route("/recomendaciones")
 def recomendaciones():
     return render_template("recomendaciones.html")
+
+
 @app.route("/utiles")
 def utiles():
     return render_template("utiles.html")
+
 
 if __name__ == '__main__':
     app.run(debug=True)
