@@ -7,7 +7,7 @@ app.secret_key = "12345"
 
 
 API_URL = "https://api.nal.usda.gov/fdc/v1/foods/search"
-API_KEY = "1YeHW5ssRNnnsULz2f3nq5ZNYtQWfJYHlbtUwtyQ"
+API_KEY = "P7OwftVfyTrK3P0YbAbobV2JMY0HEYcvWUOY4tYm"
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
