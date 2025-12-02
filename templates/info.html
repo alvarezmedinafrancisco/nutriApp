@@ -10,7 +10,15 @@
     {% extends 'base.html' %}
     {% block content%}  
 <div class="container mt-5">
-  <div class="text-center text-danger mt-4 mb-4 fs-3 fw-bold">!bienvenido a la informacion "usuario"!</div>
+      {% if session.get('user_id') %}
+  <div class="text-center text-success mt-4 mb-4 fs-3 fw-bold">
+    ¡Bienvenido, {{ session['nombre'] }}! 🌟
+  </div>
+{% else %}
+  <div class="text-center text-danger mt-4 mb-4 fs-3 fw-bold">
+    ¡BIENVENIDO A LA MEJOR NutriVerse!
+  </div>
+{% endif %}
   <div class="d-flex justify-content-center">
     <div class="card" style="width: 30rem; background-color: #fff5e1">
       <div class="card-body">
@@ -35,7 +43,7 @@
         </ul>
 
         <div class="text-center mt-3">
-          <a href="#" class="btn btn-success" style="background-color: #000000ff; border: none;">Ver más consejos</a>
+          <a href="https://mejorconsalud.as.com/dieta/nutricion/consejos-nutricion-saludable-ciencia/" class="btn btn-success" style="background-color: #000000ff; border: none;">Ver más consejos</a>
         </div>
       </div>
     </div>
@@ -46,7 +54,7 @@
   <div class="d-flex justify-content-center">
     <div class="card" style="width: 30rem; background-color: #fff5e1;">
       <div class="card-body">
-        <h5 class="card-title text-center">Materiales Descargables</h5>
+        <h5 class="card-title text-center">Material de apoyo</h5>
         <p class="card-text">
           Mejora tus hábitos con estos recursos prácticos que puedes guardar o imprimir.
         </p>
@@ -64,7 +72,7 @@
         </ul>
 
         <div class="text-center mt-3">
-          <a href="#" class="btn btn-success" style="background-color: #070707ff; border: none;">Descargar guía</a>
+          <a href="https://www.ucss.edu.pe/images/fondo-editorial/publicaciones-descargables/manual-ejercicio-casa-melina-cruzado.pdf" class="btn btn-success" style="background-color: #070707ff; border: none;">guía de ejercicio</a>
         </div>
       </div>
     </div>

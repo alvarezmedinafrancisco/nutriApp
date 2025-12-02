@@ -10,7 +10,15 @@
     {% extends 'base.html' %}
         {% block content%}  
         <div class="container mt-5">
-          <div class="text-center text-danger mt-4 mb-4 fs-3 fw-bold">!bienvenido a las recetas "usuario"!</div>
+      {% if session.get('user_id') %}
+  <div class="text-center text-success mt-4 mb-4 fs-3 fw-bold">
+    ¡Bienvenido, {{ session['nombre'] }}! 🌟
+  </div>
+{% else %}
+  <div class="text-center text-danger mt-4 mb-4 fs-3 fw-bold">
+    ¡BIENVENIDO A LA MEJOR NutriVerse!
+  </div>
+{% endif %}
   <div class="d-flex justify-content-center">
     <div class="card" style="width: 30rem; background-color: #fff5e1">
       <div class="card-body">
@@ -43,7 +51,7 @@
         </ul>
 
         <div class="text-center mt-3">
-          <a href="#" class="btn btn-success" style="background-color: #000000ff; border: none;">Ver más recetas</a>
+          <a href="https://www.directoalpaladar.com/recetario/101-recetas-sanas-para-para-tener-menu-saludable-lunes-a-domingo" class="btn btn-success" style="background-color: #000000ff; border: none;">Ver más recetas</a>
         </div>
       </div>
     </div>

@@ -93,7 +93,10 @@
     <div class="container mt-5">
   <div class="row justify-content-center g-4">
 
-    <!-- CARD 1 -->
+
+
+{% if session.get('user_id') %}
+        <!-- CARD 1 -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card shadow-sm h-100" 
            style="background-color: #ffe5c4; border-radius: 15px; transition: transform .2s;">
@@ -131,8 +134,8 @@
         </div>
       </div>
     </div>
-
-    <!-- CARD 4 -->
+    
+            <!-- CARD 4 -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card shadow-sm h-100" 
            style="background-color: #ffe5c4; border-radius: 15px; transition: transform .2s;">
@@ -158,7 +161,34 @@
         </div>
       </div>
     </div>
+{% else %}
+        <!-- CARD 4 -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card shadow-sm h-100" 
+           style="background-color: #ffe5c4; border-radius: 15px; transition: transform .2s;">
+        <div class="card-body text-center">
+          <h5 class="card-title">Macronutrientes</h5>
+          <p class="card-text">Calcula proteínas, carbohidratos y grasas</p>
+          <img src="static/macro.jpg" class="img-fluid mb-3" style="max-width: 150px;">
+          <a href="/macro" class="btn btn-dark w-100">Ir a Macros</a>
+        </div>
+      </div>
+    </div>
 
+
+    <!-- CARD 5 -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card shadow-sm h-100" 
+           style="background-color: #ffe5c4; border-radius: 15px; transition: transform .2s;">
+        <div class="card-body text-center">
+          <h5 class="card-title">peso ideal</h5> 
+          <p class="card-text">Calcula tu peso ideal</p>
+          <img src="static/pesoideal.jpg" class="img-fluid mb-3" style="max-width: 150px;">
+          <a href="/pesoideal" class="btn btn-dark w-100">Ir a Peso Ideal</a>
+        </div>
+      </div>
+    </div>
+{% endif %}
   </div>
 </div>
 

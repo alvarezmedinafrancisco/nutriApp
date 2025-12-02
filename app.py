@@ -15,7 +15,7 @@ API_KEY = "P7OwftVfyTrK3P0YbAbobV2JMY0HEYcvWUOY4tYm"
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'usuarios'
+app.config['MYSQL_DB'] = 'usuario_db'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 
@@ -163,6 +163,7 @@ def registrate():
         flash("Usuario registrado correctamente.")
 # Guardar al usuario en la sesión
         session['user_id'] = cursor.lastrowid
+        #devuelve el valor de id del ultimo usuario registrado
         return redirect(url_for('perfil', id=cursor.lastrowid))
 
 

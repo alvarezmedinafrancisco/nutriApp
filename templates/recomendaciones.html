@@ -11,7 +11,15 @@
     {% block content%}
 
 <div class="container mt-5">
-  <div class="text-center text-danger mt-4 mb-4 fs-3 fw-bold">!bienvenido a las recomendaciones "usuario"!</div>
+      {% if session.get('user_id') %}
+  <div class="text-center text-success mt-4 mb-4 fs-3 fw-bold">
+    ¡Bienvenido, {{ session['nombre'] }}! 🌟
+  </div>
+{% else %}
+  <div class="text-center text-danger mt-4 mb-4 fs-3 fw-bold">
+    ¡BIENVENIDO A LA MEJOR NutriVerse!
+  </div>
+{% endif %}
   <div class="d-flex justify-content-center">
     <div class="card" style="width: 30rem; background-color: #fff5e1;">
       <div class="card-body">
