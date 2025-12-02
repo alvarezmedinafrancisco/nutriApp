@@ -15,7 +15,7 @@ API_KEY = "P7OwftVfyTrK3P0YbAbobV2JMY0HEYcvWUOY4tYm"
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'usuario_db'
+app.config['MYSQL_DB'] = 'usuarios'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 

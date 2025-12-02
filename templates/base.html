@@ -13,8 +13,8 @@
     />
   </head>
   
-  <body style="background-color: #fff5e1">
-    <nav class="navbar navbar-expand-lg" style="background-color: bisque">
+  <body  style="background-color: #FDFBF7">
+    <nav class="navbar navbar-expand-lg" style="background-color: #A3E4D7">
   <div class="container-fluid">
     <a class="navbar-brand" href="/base">inicio</a>
     <button
@@ -84,8 +84,8 @@
     ¡Bienvenido, {{ session['nombre'] }}! 🌟
   </div>
 {% else %}
-  <div class="text-center text-danger mt-4 mb-4 fs-3 fw-bold">
-    ¡BIENVENIDO A LA MEJOR NutriVerse!
+  <div class="text-center text-dark mt-4 mb-4 fs-3 fw-bold">
+    ¡BIENVENIDO A NUTRIVERSE!
   </div>
 {% endif %}
 
@@ -99,12 +99,13 @@
         <!-- CARD 1 -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card shadow-sm h-100" 
-           style="background-color: #ffe5c4; border-radius: 15px; transition: transform .2s;">
+           style="background-color: #D6F5EE; border-radius: 15px; transition: transform .2s;">
         <div class="card-body text-center">
           <h5 class="card-title">IMC</h5>
           <p class="card-text">Calculadora de Índice de Masa Corporal</p>
           <img src="static/imc.png" class="img-fluid mb-3" style="max-width: 150px;">
-          <a href="/imc" class="btn btn-dark w-100">Ir a IMC</a>
+          <a href="/imc" class="btn w-100 text-white" 
+   style="background-color: #117864;">Ir a IMC</a>
         </div>
       </div>
     </div>
@@ -112,12 +113,13 @@
     <!-- CARD 2 -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card shadow-sm h-100" 
-           style="background-color: #ffe5c4; border-radius: 15px; transition: transform .2s;">
+           style="background-color: #D6F5EE; border-radius: 15px; transition: transform .2s;">
         <div class="card-body text-center">
           <h5 class="card-title">TMB</h5>
           <p class="card-text">Calcula tu Tasa Metabólica Basal</p>
           <img src="static/pepes.jpg" class="img-fluid mb-3" style="max-width: 150px;">
-          <a href="/tmb" class="btn btn-dark w-100">Ir a TMB</a>
+          <a href="/tmb" class="btn w-100 text-white" 
+   style="background-color: #117864;">Ir a TMB</a>
         </div>
       </div>
     </div>
@@ -125,12 +127,13 @@
     <!-- CARD 3 -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card shadow-sm h-100" 
-           style="background-color: #ffe5c4; border-radius: 15px; transition: transform .2s;">
+           style="background-color: #D6F5EE; border-radius: 15px; transition: transform .2s;">
         <div class="card-body text-center">
           <h5 class="card-title">GCT</h5>
           <p class="card-text">Calcula tu Gasto Calórico Total</p>
           <img src="static/pesas.jpg" class="img-fluid mb-3" style="max-width: 150px;">
-          <a href="/gct" class="btn btn-dark w-100">Ir a GCT</a>
+          <a href="/gct" class="btn w-100 text-white" 
+   style="background-color: #117864;">Ir a GCT</a>
         </div>
       </div>
     </div>
@@ -138,12 +141,13 @@
             <!-- CARD 4 -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card shadow-sm h-100" 
-           style="background-color: #ffe5c4; border-radius: 15px; transition: transform .2s;">
+           style="background-color: #D6F5EE; border-radius: 15px; transition: transform .2s;">
         <div class="card-body text-center">
           <h5 class="card-title">Macronutrientes</h5>
           <p class="card-text">Calcula proteínas, carbohidratos y grasas</p>
           <img src="static/macro.jpg" class="img-fluid mb-3" style="max-width: 150px;">
-          <a href="/macro" class="btn btn-dark w-100">Ir a Macros</a>
+          <a href="/macro" class="btn w-100 text-white" 
+   style="background-color: #117864;">Ir a Macros</a>
         </div>
       </div>
     </div>
@@ -152,12 +156,13 @@
     <!-- CARD 5 -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card shadow-sm h-100" 
-           style="background-color: #ffe5c4; border-radius: 15px; transition: transform .2s;">
+           style="background-color: #D6F5EE; border-radius: 15px; transition: transform .2s;">
         <div class="card-body text-center">
           <h5 class="card-title">peso ideal</h5> 
           <p class="card-text">Calcula tu peso ideal</p>
           <img src="static/pesoideal.jpg" class="img-fluid mb-3" style="max-width: 150px;">
-          <a href="/pesoideal" class="btn btn-dark w-100">Ir a Peso Ideal</a>
+          <a href="/pesoideal" class="btn w-100 text-white" 
+   style="background-color: #117864;">Ir a Peso Ideal</a>
         </div>
       </div>
     </div>
@@ -165,12 +170,13 @@
         <!-- CARD 4 -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card shadow-sm h-100" 
-           style="background-color: #ffe5c4; border-radius: 15px; transition: transform .2s;">
+           style="background-color: #D6F5EE; border-radius: 15px; transition: transform .2s;">
         <div class="card-body text-center">
           <h5 class="card-title">Macronutrientes</h5>
           <p class="card-text">Calcula proteínas, carbohidratos y grasas</p>
           <img src="static/macro.jpg" class="img-fluid mb-3" style="max-width: 150px;">
-          <a href="/macro" class="btn btn-dark w-100">Ir a Macros</a>
+          <a href="/macro" class="btn w-100 text-white" 
+   style="background-color: #117864;">Ir a Macros</a>
         </div>
       </div>
     </div>
@@ -179,12 +185,13 @@
     <!-- CARD 5 -->
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card shadow-sm h-100" 
-           style="background-color: #ffe5c4; border-radius: 15px; transition: transform .2s;">
+     style="background-color: #D6F5EE; border-radius: 18px; transition: transform .2s;">
         <div class="card-body text-center">
           <h5 class="card-title">peso ideal</h5> 
           <p class="card-text">Calcula tu peso ideal</p>
           <img src="static/pesoideal.jpg" class="img-fluid mb-3" style="max-width: 150px;">
-          <a href="/pesoideal" class="btn btn-dark w-100">Ir a Peso Ideal</a>
+          <a href="/pesoideal" class="btn w-100 text-white" 
+   style="background-color: #117864;"> calcular peso ideal </a>
         </div>
       </div>
     </div>
