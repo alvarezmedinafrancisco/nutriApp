@@ -1,65 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
 {% extends 'base.html' %}
-{% block content%}
+{% block content %}
 
 <div class="container mt-5">
   <div class="d-flex justify-content-center">
     <div class="card" style="width: 30rem; background-color: #fff5e1;">
       <div class="card-body">
+
         <h5 class="card-title text-center">Perfil del Usuario</h5>
 
         <p class="card-text">Nombre:</p>
-        <input type="text" class="form-control mb-3" id="name" name="name" value="{{ user.name }}" required>
+        <input type="text" class="form-control mb-3" value="{{ user.nombre }}" readonly>
 
         <p class="card-text">Apellidos:</p>
-        <input type="text" class="form-control mb-3" id="apellidos" name="apellidos" value="{{ user.apellidos }}" required>
+        <input type="text" class="form-control mb-3" value="{{ user.apellidos }}" readonly>
 
         <p class="card-text">Edad:</p>
-        <input type="number" class="form-control mb-3" id="edad" name="edad" value="{{ user.edad }}" required>
+        <input type="number" class="form-control mb-3" value="{{ user.edad }}" readonly>
 
         <p class="card-text">Sexo:</p>
-        <select class="form-control mb-3" id="sexo" name="sexo" required>
-          <option value="">Seleccione una opción</option>
-          <option value ="Masculino" {% if user.sexo == 'Masculino' %}selected{% endif %}>Masculino</option>
-          <option value="Femenino" {% if user.sexo == 'Femenino' %}selected{% endif %}>Femenino</option>
-          <option value="Otro" {% if user.sexo == 'Otro' %}selected{% endif %}>Otro</option>
-        </select>
+        <input type="text" class="form-control mb-3" value="{{ user.sexo }}" readonly>
 
         <p class="card-text">Peso (kg):</p>
-        <input type="number" class="form-control mb-3" id="peso" name="peso" value="{{ user.peso }}" required>
+        <input type="number" class="form-control mb-3" value="{{ user.peso }}" readonly>
 
         <p class="card-text">Altura (cm):</p>
-        <input type="number" class="form-control mb-3" id="altura" name="altura" value="{{ user.altura }}" required>
+        <input type="number" class="form-control mb-3" value="{{ user.altura }}" readonly>
 
-        <p class="card-text" >Nivel de Actividad Física:</p>
-        <select class="form-control mb-3"  id="nivel_actividad" required>
-          <option value="">Seleccione una opción</option>
-          <option value="Sedentario" {% if user.nivel_actividad == 'Sedentario' %}selected{% endif %}>Sedentario</option>
-          <option value="ligero" {% if user.nivel_actividad == 'ligero' %}selected{% endif %}>Ligero</option>
-          <option value= "Moderado" {% if user.nivel_actividad == 'Moderado' %}selected{% endif %}>Moderado</option>
-          <option value="Activo" {% if user.nivel_actividad == 'Activo' % }selected{% endif %}>Activo</option>
-          <option value="Muy Activo" {% if user.nivel_actividad == 'Muy Activo' %}selected{% endif %}>Muy Activo</option>
-        </select>
-        <p class="card-text">Correo Electrónico:</p>
-        <input type="email" class="form-control mb-3" id="email" name="email" value="{{ user.email }}" required>              
-        <p class="card-text" >Contraseña:</p>
-        <input type="password" class="form-control mb-3" id="password" name="password" value="{{ user.password }}" required> 
-        <p class="card-text">Foto de Perfil:</p>
-        <input type="file" class="form-control mb-3" />
-        <div class="text-center mt-4">
-          <button class="btn btn-primary" style="background-color: #000000ff; border: none;" action>Guardar Perfil</button>
-        </div>
-      </div>    
-      
+        <p class="card-text">Nivel de Actividad:</p>
+        <input type="text" class="form-control mb-3" value="{{ user.nivel_actividad }}" readonly>
 
+        <p class="card-text">Correo:</p>
+        <input type="email" class="form-control mb-3" value="{{ user.correo }}" readonly>
 
-{%endblock%}
-</body>
-</html>
+        <p class="card-text">Objetivo:</p>
+        <input type="text" class="form-control mb-3" value="{{ user.objetivo }}" readonly>
+
+        <p class="card-text">Nivel de Cocina:</p>
+        <input type="text" class="form-control mb-3" value="{{ user.nivel_cocina }}" readonly>
+
+        <p class="card-text">Preferencias Alimenticias:</p>
+        <input type="text" class="form-control mb-3" value="{{ user.preferencias }}" readonly>
+
+        <p class="card-text">Alergias:</p>
+        <input type="text" class="form-control mb-3" value="{{ user.alergias }}" readonly>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

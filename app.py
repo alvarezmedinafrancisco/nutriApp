@@ -1,6 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_mysqldb import MySQL
 import requests
+from werkzeug.security import generate_password_hash, check_password_hash
+
+
 
 app = Flask(__name__)
 app.secret_key = "12345" 
@@ -16,21 +19,26 @@ app.config['MYSQL_DB'] = 'usuarios'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 
-        
+        #pa que carge directamente la paguina en registrate
 @app.route('/')
 def index():    
     return render_template('registrate.html')
 
+
+# Ruta para buscar alimentos usando la API de USDA
 @app.route("/foods", methods=['GET', 'POST'])
 def get_foods():
+    # Obtener el nombre del alimento desde los parámetros de la URL
     food_name = request.args.get("food_name", "").strip()
     if not food_name:
         food_name = "apple"
+        # Realizar la solicitud a la API de USDA
     params = {
         "api_key": API_KEY,
         "query": food_name,
         "pageSize": 12
     }
+    # Hacer la solicitud a la API
     try:
         response = requests.get(API_URL, params=params)
         response.raise_for_status()
@@ -108,9 +116,10 @@ def peso_ideal():
             peso_ideal = 50 + 2.3 * ((altura * 100 / 2.54) - 60)
         else:
             peso_ideal = 45.5 + 2.3 * ((altura * 100 / 2.54) - 60)
-        return render_template("peso_ideal.html", peso_ideal=peso_ideal)
-    return render_template("peso_ideal.html")
+        return render_template("pesoideal.html", peso_ideal=peso_ideal)
+    return render_template("pesoideal.html")
 
+# crea una variable mysql para manejar la base de datos
 mysql = MySQL(app)
 def email_exists(correo):
     cursor = mysql.connection.cursor()
@@ -123,19 +132,20 @@ def email_exists(correo):
 def registrate():
     if request.method == 'POST':
 
-        nombre = request.form['name']
+        nombre = request.form['nombre']
         apellidos = request.form['apellidos']
         edad = request.form['edad']
         sexo = request.form['sexo']
         peso = request.form['peso']
         altura = request.form['altura']
         nivel_actividad = request.form['nivel_actividad']
-        correo = request.form['email']
-        contra = request.form['contra']
+        correo = request.form['correo']
+        contra = generate_password_hash(request.form['contra'])
         objetivo = request.form['objetivo']
         nivel_cocina = request.form['nivel_cocina']
         preferencias = request.form['preferencias']
         alergias = request.form['alergias']
+
         if email_exists(correo):
             flash("Ese correo ya está registrado, elige otro.")
             return redirect(url_for('registrate'))
@@ -151,13 +161,64 @@ def registrate():
         cursor.close()
 
         flash("Usuario registrado correctamente.")
-        return redirect(url_for('perfil', nombre=nombre))
+# Guardar al usuario en la sesión
+        session['user_id'] = cursor.lastrowid
+        return redirect(url_for('perfil', id=cursor.lastrowid))
+
 
     return render_template("registrate.html")
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        correo = request.form['correo']
+        contra = request.form['contra']
+
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (correo,))
+        user = cursor.fetchone()
+        cursor.close()
+
+        if user is None:
+            flash("El correo no está registrado.")
+            return redirect(url_for('login'))
+
+        if not check_password_hash(user['contra'], contra):
+            flash("Contraseña incorrecta.")
+            return redirect(url_for('login'))
+
+        session['user_id'] = user['id']
+        session['nombre'] = user['nombre']
+
+        return redirect(url_for('base'))
+
+    return render_template("login.html")
+
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for('base'))
+
+
+
 @app.route("/perfil")
 def perfil():
-    nombre = request.args.get('nombre', 'Usuario')
-    return render_template("perfil.html", nombre=nombre)
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    user_id = request.args.get("id", session['user_id'])
+
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM usuarios WHERE id = %s", (user_id,))
+    user = cursor.fetchone()
+    cursor.close()
+
+    return render_template("perfil.html", user=user)
+
+
+
 
 
 @app.route("/base")
@@ -188,6 +249,11 @@ def recomendaciones():
 @app.route("/utiles")
 def utiles():
     return render_template("utiles.html")
+
+
+@app.context_processor
+def inject_user():
+    return dict(user_id=session.get("user_id"))
 
 
 if __name__ == '__main__':
